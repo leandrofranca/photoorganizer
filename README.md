@@ -15,5 +15,5 @@ Should multiple images have the same DateTimeOriginal, DateTimeDigitized or Date
     optional arguments:
         -h, --help                show this help message and exit
         -r, --recursive           enable recursive renaming in subdirectories
-        -d DIRECTORY or           directory of files to rename (defaults to .)
+        -d DIRECTORY,             directory of files to rename (defaults to .)
          --directory DIRECTORY
