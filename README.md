@@ -1,7 +1,7 @@
 # photoorganizer
 
 Rename image files based on the EXIF DateTimeOriginal, DateTimeDigitized or DateTime field.
-All images in the specified folder(s) are renamed following the format `YYYY.MM.DD-hh.mm.ss.ext`, based on when it was taken.
+All images in the specified folder(s) are renamed following the format `IMG_YYYYMMDD_hhmmss.ext`, based on when it was taken.
 
 Images without the field set, or without EXIF data altogether, are ignored.
 Should multiple images have the same DateTimeOriginal, DateTimeDigitized or DateTime values, the script will generate a postfix to append to the filename.
