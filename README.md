@@ -10,7 +10,7 @@ Should multiple images have the same DateTimeOriginal, DateTimeDigitized or Date
 
     renamer [-h] [-r] [-d DIRECTORY]
 
-    Rename image files based on the EXIF DateTimeOriginal field.
+    Rename image files based on the EXIF DateTimeOriginal, DateTimeDigitized or DateTime field.
 
     optional arguments:
         -h, --help                show this help message and exit
