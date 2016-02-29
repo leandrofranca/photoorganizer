@@ -201,7 +201,7 @@ class PhotoCleaner(object):
                     index += 1
                     print('Completed %d%% - %s' % ((100 * index) / total, i.get_file_name()))
                 except Exception as ex:
-                    print('Skipping!')
+                    print('Skipping file %s' % i.get_file_name())
                     print(repr(ex))
         except Exception as e:
             print('Error analyzing histograms')
