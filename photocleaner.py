@@ -199,7 +199,7 @@ class PhotoCleaner(object):
                     histogram = hash(str(image.histogram()))
                     i.set_histogram(histogram)
                     index += 1
-                    print('Completed %d%% - %s' % ((100 * index) / total, i.get_file_name()))
+                    # print('Completed %d%% - %s' % ((100 * index) / total, i.get_file_name()))
                 except Exception as ex:
                     print('Skipping file %s' % i.get_file_name())
                     print(repr(ex))

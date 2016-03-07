@@ -12,7 +12,7 @@ MOCK = True
 EXIF_FORMAT = '%Y:%m:%d %H:%M:%S'
 FILE_DATE_FORMAT = '%Y%m%d_%H%M%S'
 
-FILENAME_PATTERN = "(\d{2,4}[\.\-_]?\d{2}[\.\-_]?\d{2}[\.\-_]?\d{2}[\.\-_]?\d{2}[\.\-_]?\d{2}\d*)[-_]?(.*)(\..*)$"
+FILENAME_PATTERN = "(\d{2,4}[\.\-_]?\d{2}[\.\-_]?\d{2}[\.\-_]?\d{2}[\.\-_]?\d{2}[\.\-_]?\d{2})\d*[-_]?(.*)(\..*)$"
 
 def get_exif(file_path):
     ret = {}
@@ -24,7 +24,8 @@ def get_exif(file_path):
     return ret
 
 def file_date_format(date):
-    return str(datetime.strftime(date, FILE_DATE_FORMAT))
+    new_name = str(datetime.strftime(date, FILE_DATE_FORMAT))
+    return new_name
 
 def convert_date(_str):
     return datetime.strptime(_str, EXIF_FORMAT)
@@ -92,7 +93,7 @@ def rename(pair):
 
 def set_file_postfix(file_path, postfix):
     def substitute_postfix(m):
-        return m.group(1) + "-" + postfix + m.group(3)
+        return m.group(1) + "_" + postfix + m.group(3)
     return re.sub(FILENAME_PATTERN, substitute_postfix, file_path)
 
 def prompt_postfix(file_path):
@@ -106,7 +107,7 @@ def prompt_postfix(file_path):
 def suggest_postfix(file_path):
     import itertools
     for i in itertools.count():
-        if not os.path.exists(set_file_postfix(file_path, str(i))):
+        if not os.path.exists(set_file_postfix(file_path, str(i).zfill(3))):
             return str(i)
 
 def print_change(old, new):
