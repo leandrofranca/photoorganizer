@@ -39,7 +39,7 @@ class PhotoParser(object):
             if len(v) > 1:
                 print('Identical photos found:')
                 for img in v:
-                    print('\t' + img.get_file_name())
+                    print('   ' + img.get_file_name() + ' ' + str(img.get_file_size()))
                 same_photos = same_photos + 1
 
         if same_photos == 0:
@@ -59,19 +59,19 @@ class PhotoParser(object):
             for y in years:
                 self.data_tree[y] = {}
 
-            # for y in years:
-            #    for p in self.photos_to_process:
-            #        print('Processing %s - Date: %s' % (p.get_file_name(), p.get_file_date()))
-            #        months = list(set([p.get_month() for p in self.photos_to_process if y == p.get_year()]))
-            #        for m in months:
-            #            self.data_tree[y][m] = []
+            for y in years:
+                for p in self.photos_to_process:
+                    print('Processing %s - Date: %s' % (p.get_file_name(), p.get_file_date()))
+                    months = list(set([p.get_month() for p in self.photos_to_process if y == p.get_year()]))
+                    for m in months:
+                        self.data_tree[y][m] = []
 
-            # for p in self.photos_to_process:
-            #    self.data_tree[p.get_year()][p.get_month()].append(p)
+            for p in self.photos_to_process:
+                self.data_tree[p.get_year()][p.get_month()].append(p)
 
             # Data tree is completed.
-            # self.__create_directory_tree()
-            # self.__copy_files()
+            self.__create_directory_tree()
+            self.__copy_files()
 
         except Exception as e:
             print('Error processing data:')
@@ -82,7 +82,7 @@ class PhotoParser(object):
         try:
             for year, v in list(self.data_tree.items()):
                 for month, data in list(v.items()):
-                    create_directory(''.join([self.paths[1], '/', year, '/', month]))
+                    create_directory(''.join([self.paths[1], os.sep, year, os.sep, month]))
 
         except Exception as e:
             print(e)
@@ -95,8 +95,8 @@ class PhotoParser(object):
                 for month, data in list(v.items()):
                     for d in data:
                         path = d.get_file_name()
-                        filename = path[path.rfind('/') + 1:]
-                        output = ''.join([self.paths[1], '/', year, '/', month, '/', str(index).zfill(6), '_', filename])
+                        filename = path[path.rfind(os.sep) + 1:]
+                        output = ''.join([self.paths[1], os.sep, year, os.sep, month, os.sep, str(index).zfill(6), '_', filename])
                         print(output)
                         shutil.copy2(path, output)
                         index += 1
