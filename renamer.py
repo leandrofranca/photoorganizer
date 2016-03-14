@@ -12,7 +12,7 @@ MOCK = True
 EXIF_FORMAT = '%Y:%m:%d %H:%M:%S'
 FILE_DATE_FORMAT = '%Y%m%d_%H%M%S'
 
-FILENAME_PATTERN = "(\d{2,4}[\.\-_]?\d{2}[\.\-_]?\d{2}[\.\-_]?\d{2}[\.\-_]?\d{2}[\.\-_]?\d{2})\d*[-_]?(.*)(\..*)$"
+FILENAME_PATTERN = "((19|20)\d{2}[\.\-_]?\d{2}[\.\-_]?\d{2}[\.\-_]?\d{2}[\.\-_]?\d{2}[\.\-_]?\d{2})\d*[\-_]?(.*)(\..*)$"
 
 def get_exif(file_path):
     ret = {}
