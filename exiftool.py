@@ -329,12 +329,7 @@ FILENAME_PATTERN_COM_HORA = ".*((19|20)\d{2})[\.\-_]?(0[1-9]|1[012])[\.\-_]?(0[1
 FILENAME_PATTERN_SEM_HORA = ".*[\.\-_]((19|20)\d{2})[\.\-_]?(0[1-9]|1[012])[\.\-_]?(0[1-9]|[12][0-9]|3[01]).*"
 FILE_FORMAT = '%Y-%m-%d-%H-%M-%S'
 EXIF_FORMAT = '%Y:%m:%d %H:%M:%S'
-
-# files = ["a.jpg", "b.png", "c.tif"]
-# with exiftool.ExifTool() as et:
-#     metadata = et.get_metadata_batch(files)
-# for d in metadata:
-#     print("{:20.20} {:20.20}".format(d["SourceFile"], d["EXIF:DateTimeOriginal"]))
+et = ExifTool("D:\exiftool.exe")
 
 def list_files(path, recursive):
     files = []
@@ -372,11 +367,7 @@ def change_exif(path):
             dt.append('0')
     _datetime = datetime.strptime('-'.join(dt), FILE_FORMAT)
     exif_datetime = str(datetime.strftime(_datetime, EXIF_FORMAT))
-    et.execute(b"-U")
-    et.execute(b"-overwrite_original_in_place")
-    et.execute(b"-Keywords", b"")
-    et.execute(b"-UserComment", b"")
-    et.execute(b"-AllDates", exif_datetime.encode(encoding='utf_8', errors='strict'))
+    et.execute(b"-overwrite_original_in_place", b"-AllDates=\"" + exif_datetime.encode(encoding='utf_8', errors='strict') + b"\"", path.encode(encoding='utf_8', errors='strict'))
     print_change(path)
 
 def needs_be_changed(file_path):
@@ -400,5 +391,4 @@ if __name__ == '__main__':
     parser.add_argument('-r', '--recursive', help='enable recursive renaming in subdirectories', action='store_true')
     parser.add_argument('-d', '--directory', help='directory of files to rename (defaults to .)', default='.')
     args = parser.parse_args()
-    et = ExifTool("D:\exiftool.exe")
     change_files(args.directory, args.recursive)
