@@ -60,14 +60,14 @@ class PhotoParser(object):
                 self.data_tree[y] = {}
 
             for y in years:
-               for p in self.photos_to_process:
-                   print('Processing %s - Date: %s' % (p.get_file_name(), p.get_file_date()))
-                   months = list(set([p.get_month() for p in self.photos_to_process if y == p.get_year()]))
-                   for m in months:
-                       self.data_tree[y][m] = []
+                for p in self.photos_to_process:
+                    print('Processing %s - Date: %s' % (p.get_file_name(), p.get_file_date()))
+                    months = list(set([p.get_month() for p in self.photos_to_process if y == p.get_year()]))
+                    for m in months:
+                        self.data_tree[y][m] = []
 
             for p in self.photos_to_process:
-               self.data_tree[p.get_year()][p.get_month()].append(p)
+                self.data_tree[p.get_year()][p.get_month()].append(p)
 
             # Data tree is completed.
             self.__create_directory_tree()
