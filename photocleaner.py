@@ -191,18 +191,20 @@ class PhotoCleaner(object):
     def __analyze_histogram(self):
         print('Analyzing histograms...')
         try:
-            index = 0
-            total = len(self.photo_info)
+            # index = 0
+            # total = len(self.photo_info)
             for i in self.photo_info:
                 try:
                     image = Image.open(i.get_file_name())
                     histogram = hash(str(image.histogram()))
                     i.set_histogram(histogram)
-                    index += 1
+                    # index += 1
                     # print('Completed %d%% - %s' % ((100 * index) / total, i.get_file_name()))
-                except Exception as ex:
-                    print('Skipping file %s' % i.get_file_name())
-                    print(repr(ex))
+                except Exception:
+                    print('Delete: %s' % i.get_file_name())
+                    self.photo_info.remove(i)
+                    # i.set_histogram(0)
+                    # print(repr(ex))
         except Exception as e:
             print('Error analyzing histograms')
             print(repr(e))
